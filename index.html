@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MS Concrete — Your Concrete Project Partner</title>
+<title>MS Concrete Ltd. — Your Concrete Project Partner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -725,6 +725,146 @@ footer{
   </div>
 </section>
 
+<!-- PROJECT GALLERY -->
+<section id="gallery" class="gallery-section">
+  <div class="gallery-header">
+    <p class="eyebrow reveal">More From The Field</p>
+    <h2 class="sec-title reveal delay-1">The Project<br>Gallery.</h2>
+    <p class="sec-body reveal delay-2">A closer look at finishes, textures, and detail work from recent pours across Auckland. Click any image to view it full size.</p>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+<style>
+.gallery-section{background:var(--bg2)}
+.gallery-header{max-width:1200px;margin:0 auto 56px}
+.gallery-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.gallery-item{
+  position:relative;overflow:hidden;border-radius:4px;
+  border:1px solid var(--line);cursor:pointer;aspect-ratio:1/1;
+}
+.gallery-item img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(.75) contrast(1.1) saturate(.85);
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94),filter .5s;
+}
+.gallery-item:hover img{
+  transform:scale(1.08);filter:brightness(.9) contrast(1.05) saturate(.95);
+}
+.gallery-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(10,9,6,.85) 0%,rgba(10,9,6,0) 55%);
+  opacity:0;transition:opacity .4s;
+}
+.gallery-item:hover .gallery-overlay{opacity:1}
+.gallery-cat{
+  position:absolute;left:18px;right:18px;bottom:16px;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s;
+}
+.gallery-cat::before{content:'';width:16px;height:1px;background:var(--gold)}
+.gallery-item:hover .gallery-cat{opacity:1;transform:none}
+@media(max-width:900px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.gallery-grid{grid-template-columns:1fr}}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:99999;
+  background:rgba(10,9,6,.92);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  padding:60px;cursor:pointer;opacity:0;transition:opacity .3s;
+}
+.lightbox.show{opacity:1}
+.lightbox img{
+  max-width:100%;max-height:100%;object-fit:contain;
+  border:1px solid var(--line);border-radius:4px;
+  transform:scale(.96);transition:transform .3s;
+}
+.lightbox.show img{transform:scale(1)}
+.lightbox-cap{
+  position:absolute;bottom:32px;left:0;right:0;text-align:center;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);
+}
+.lightbox-close{
+  position:absolute;top:28px;right:36px;
+  width:36px;height:36px;border:1px solid var(--line);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--off);font-size:20px;line-height:1;font-weight:300;
+}
+</style>
+<script>
+// ============================================================
+// PROJECT GALLERY IMAGES — to add a new photo, just add one
+// more line below with the image path, a short description,
+// and a category. The grid and lightbox update automatically;
+// nothing else in the page needs to change.
+// ============================================================
+const galleryImages = [
+  { src:'images/project1.jpg', alt:'Exposed aggregate finish close-up', category:'Residential' },
+  { src:'images/project2.jpg', alt:'Commercial slab pour', category:'Commercial' },
+  { src:'images/project3.jpg', alt:'Driveway edge detail', category:'Residential' },
+  { src:'images/project4.jpg', alt:'Broom finish footpath', category:'Infrastructure' },
+  { src:'images/project5.jpg', alt:'Steel frame slab pour', category:'Commercial' },
+  { src:'images/project6.jpg', alt:'Exposed aggregate driveway', category:'Residential' },
+  { src:'images/project7.jpg', alt:'Hardstand pour', category:'Residential' },
+  { src:'images/project8.jpg', alt:'Warehouse floor slab', category:'Commercial' },
+  { src:'images/project9.jpg', alt:'Footpath expansion joints', category:'Infrastructure' },
+  { src:'images/image_0.jpg', alt:'Curved rural driveway pour', category:'Residential' },
+  { src:'images/image_1.jpeg', alt:'Driveway apron finish beside home', category:'Residential' },
+  { src:'images/image_2.jpg', alt:'Backyard concrete path along fence line', category:'Residential' },
+  { src:'images/image_3.jpg', alt:'Large backyard slab pour', category:'Residential' },
+  { src:'images/image_4.jpg', alt:'Commercial building entrance footpath', category:'Commercial' },
+  { src:'images/image_5.jpg', alt:'Commercial forecourt pour between buildings', category:'Commercial' },
+  { src:'images/image_6.jpg', alt:'Exposed aggregate footpath along boundary fence', category:'Infrastructure' },
+  { src:'images/image_7.jpg', alt:'Covered walkway with exposed aggregate finish', category:'Commercial' },
+  { src:'images/image_8.jpg', alt:'Interior slab finish', category:'Commercial' },
+  { src:'images/image_9.jpg', alt:'Curving pathway along fence line', category:'Infrastructure' },
+  { src:'images/image_10.jpg', alt:'Commercial precinct pathway with garden bed', category:'Commercial' },
+  { src:'images/image_11.jpg', alt:'Accessibility tactile paving detail', category:'Infrastructure' },
+];
+
+const galleryGrid = document.getElementById('galleryGrid');
+galleryGrid.innerHTML = galleryImages.map((item,i)=>`
+  <div class="gallery-item reveal delay-${(i%4)+1}">
+    <img src="${item.src}" alt="${item.alt}" loading="lazy">
+    <div class="gallery-overlay"></div>
+    <div class="gallery-cat">${item.category}</div>
+  </div>
+`).join('');
+
+// Lightbox — click an image to view full size, click again or press Esc to close
+galleryGrid.addEventListener('click', e=>{
+  const itemEl = e.target.closest('.gallery-item');
+  if(!itemEl) return;
+  const idx = [...galleryGrid.children].indexOf(itemEl);
+  const item = galleryImages[idx];
+
+  const box = document.createElement('div');
+  box.className = 'lightbox';
+  box.innerHTML = `
+    <div class="lightbox-close">&times;</div>
+    <img src="${item.src}" alt="${item.alt}">
+    <div class="lightbox-cap">${item.category} — ${item.alt}</div>
+  `;
+  document.body.appendChild(box);
+  requestAnimationFrame(()=>box.classList.add('show'));
+
+  const close = ()=>{
+    box.classList.remove('show');
+    setTimeout(()=>box.remove(), 300);
+    document.removeEventListener('keydown', onKey);
+  };
+  box.addEventListener('click', close);
+  const onKey = ev=>{ if(ev.key==='Escape') close(); };
+  document.addEventListener('keydown', onKey);
+});
+</script>
+</body>
+</html>
+
 <!-- PROCESS -->
 <section class="process-section" id="process">
   <div class="process-header">
@@ -861,7 +1001,7 @@ footer{
         </div>
         <div>
           <div class="ci-label">Email</div>
-          <div class="ci-value">contact@msconcrete.co.nz</div>
+          <div class="ci-value">serafinsosmena01@gmail.com</div>
           <div class="ci-sub">Best for project enquiries and quotes</div>
         </div>
       </a>
@@ -871,7 +1011,7 @@ footer{
         </div>
         <div>
           <div class="ci-label">Phone — Serafin</div>
-          <div class="ci-value">027 291 5568</div>
+          <div class="ci-value">002 134 8330</div>
           <div class="ci-sub">Direct line to the owner</div>
         </div>
       </a>
@@ -933,8 +1073,8 @@ footer{
       <div>
         <div class="fc-head">Contact</div>
         <ul class="fc-links">
-          <li><a href="mailto:contact@msconcrete.co.nz">contact@msconcrete.co.nz</a></li>
-          <li><a href="tel:+64272915568">027 291 5568</a></li>
+          <li><a href="mailto:serafinsosmena01@gmail.com">serafinsosmena01@gmail.com</a></li>
+          <li><a href="tel:+64211348330">021 134 8330</a></li>
           <li><a href="tel:+64211629214">021 162 9214</a></li>
           <li><a href="#top">Auckland, NZ</a></li>
         </ul>
@@ -954,7 +1094,7 @@ const ring = document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
 (function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,.service-row,.proj-card').forEach(el=>{
+document.querySelectorAll('a,button,.service-row,.proj-card,.gallery-item,.lightbox-close').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='56px';ring.style.height='56px';ring.style.opacity='0.8';});
   el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.5';});
 });
@@ -972,5 +1112,4 @@ const ro = new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
 revels.forEach(el=>ro.observe(el));
 </script>
-</body>
-</html>
+
