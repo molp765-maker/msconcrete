@@ -98,6 +98,61 @@ nav.scrolled{
 }
 .nav-quote:hover{background:#e0bc5a;transform:translateY(-1px)}
 
+/* MOBILE NAV TOGGLE */
+.nav-toggle{
+  display:none;
+  width:32px;height:24px;
+  position:relative;
+  background:none;border:none;
+  cursor:pointer;padding:0;
+  z-index:200;
+}
+.nav-toggle span{
+  position:absolute;left:0;right:0;
+  height:2px;background:var(--white);
+  transition:transform .3s,opacity .3s,background .3s;
+}
+.nav-toggle span:nth-child(1){top:0}
+.nav-toggle span:nth-child(2){top:11px}
+.nav-toggle span:nth-child(3){top:22px}
+.nav-toggle.open span{background:var(--gold)}
+.nav-toggle.open span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu{
+  position:fixed;inset:0;z-index:150;
+  background:rgba(10,9,6,0.98);
+  backdrop-filter:blur(24px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:32px;
+  opacity:0;visibility:hidden;
+  transition:opacity .35s ease,visibility .35s ease;
+}
+.mobile-menu.open{opacity:1;visibility:visible}
+.mobile-menu ul{
+  list-style:none;
+  display:flex;flex-direction:column;
+  align-items:center;gap:28px;
+}
+.mobile-menu a{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:32px;letter-spacing:.06em;
+  color:var(--white);text-decoration:none;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .4s ease,transform .4s ease,color .2s;
+}
+.mobile-menu.open a{opacity:1;transform:translateY(0)}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu .nav-quote{
+  margin-top:8px;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .4s ease .1s,transform .4s ease .1s;
+}
+.mobile-menu.open .nav-quote{opacity:1;transform:translateY(0)}
+
 /* HERO */
 .hero{
   min-height:100vh;position:relative;overflow:hidden;
@@ -505,6 +560,9 @@ footer{
 
 /* RESPONSIVE */
 @media(max-width:900px){
+  .nav-links{display:none}
+  nav > .nav-quote{display:none}
+  .nav-toggle{display:block}
   nav{padding:0 24px}
   section{padding:80px 24px}
   .hero{padding:0 24px 64px}
@@ -549,7 +607,22 @@ footer{
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-quote">Get a Quote</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-quote">Get a Quote</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="top">
@@ -1096,6 +1169,25 @@ window.addEventListener('scroll',()=>{
   nav.classList.toggle('scrolled', window.scrollY > 40);
 },{passive:true});
 
+// Mobile menu toggle
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobileMenu(){
+  navToggle.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  navToggle.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+}
+navToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', isOpen);
+  navToggle.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', closeMobileMenu);
+});
+
 // Reveal on scroll
 const revels = document.querySelectorAll('.reveal');
 const ro = new IntersectionObserver(entries=>{
@@ -1103,4 +1195,3 @@ const ro = new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
 revels.forEach(el=>ro.observe(el));
 </script>
-
