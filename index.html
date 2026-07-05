@@ -152,6 +152,23 @@ nav.scrolled{
   transition:opacity .4s ease .1s,transform .4s ease .1s;
 }
 .mobile-menu.open .nav-quote{opacity:1;transform:translateY(0)}
+.mobile-menu-close{
+  position:absolute;top:24px;right:24px;
+  width:40px;height:40px;
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.mobile-menu-close::before,
+.mobile-menu-close::after{
+  content:'';position:absolute;
+  width:24px;height:2px;
+  background:var(--white);
+  transition:background .2s;
+}
+.mobile-menu-close::before{transform:rotate(45deg)}
+.mobile-menu-close::after{transform:rotate(-45deg)}
+.mobile-menu-close:hover::before,
+.mobile-menu-close:hover::after{background:var(--gold)}
 
 /* HERO */
 .hero{
@@ -560,6 +577,8 @@ footer{
 
 /* RESPONSIVE */
 @media(max-width:900px){
+  body{cursor:auto}
+  #cursor,#cursor-ring{display:none}
   .nav-links{display:none}
   nav > .nav-quote{display:none}
   .nav-toggle{display:block}
@@ -600,7 +619,7 @@ footer{
     <span class="brand-name">MS Concrete</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#about">About </a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#process">Process</a></li>
@@ -614,8 +633,9 @@ footer{
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"></button>
   <ul>
-    <li><a href="#about">About </a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#process">Process</a></li>
@@ -1059,7 +1079,7 @@ galleryGrid.addEventListener('click', e=>{
       </div>
     </div>
     <div class="contact-items reveal delay-2">
-      <a href="mailto:serafinsosmena01@gmail.com" class="ci">
+      <a href="mailto:contact@msconcrete.co.nz" class="ci">
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
@@ -1069,7 +1089,7 @@ galleryGrid.addEventListener('click', e=>{
           <div class="ci-sub">Best for project enquiries and quotes</div>
         </div>
       </a>
-      <a href="tel:+6421348330" class="ci">
+      <a href="tel:+64272915568" class="ci">
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         </div>
@@ -1138,7 +1158,7 @@ galleryGrid.addEventListener('click', e=>{
         <div class="fc-head">Contact</div>
         <ul class="fc-links">
           <li><a href="mailto:serafinsosmena01@gmail.com">serafinsosmena01@gmail.com</a></li>
-          <li><a href="tel:+6421348330">02 134 8330</a></li>
+          <li><a href="tel:+64211348330">02 134 8330</a></li>
           <li><a href="tel:+64211629214">021 162 9214</a></li>
           <li><a href="#top">Auckland, NZ</a></li>
         </ul>
@@ -1187,6 +1207,10 @@ navToggle.addEventListener('click', () => {
 mobileMenu.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', closeMobileMenu);
 });
+document.getElementById('mobileMenuClose').addEventListener('click', closeMobileMenu);
+mobileMenu.addEventListener('click', (e) => {
+  if(e.target === mobileMenu) closeMobileMenu();
+});
 
 // Reveal on scroll
 const revels = document.querySelectorAll('.reveal');
@@ -1195,3 +1219,4 @@ const ro = new IntersectionObserver(entries=>{
 },{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
 revels.forEach(el=>ro.observe(el));
 </script>
+
