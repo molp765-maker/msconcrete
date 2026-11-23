@@ -7,6 +7,7 @@
 <link rel="icon" type="image/x-icon" href="logo.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="app.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -19,35 +20,22 @@
   --bg2:#111009;
   --bg3:#181612;
   --line:rgba(201,168,76,0.18);
+  --font-system:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  --font-minor:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"SF Pro Text",Arial,sans-serif;
 }
 html{scroll-behavior:smooth}
 body{
-  font-family:'DM Sans',sans-serif;
+  font-family:var(--font-system);
   background:var(--bg);
   color:var(--white);
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  cursor:none;
 }
 
-/* CURSOR */
-#cursor{
-  position:fixed;width:10px;height:10px;
-  background:var(--gold);border-radius:50%;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width .3s,height .3s,background .3s;
-  mix-blend-mode:difference;
+a,button{cursor:pointer}
+a:focus-visible,button:focus-visible,.gallery-item:focus-visible{
+  outline:2px solid var(--gold);outline-offset:4px;
 }
-#cursor-ring{
-  position:fixed;width:36px;height:36px;
-  border:1px solid var(--gold);border-radius:50%;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:transform .12s ease,width .3s,height .3s,opacity .3s;
-  opacity:0.5;
-}
-body:hover #cursor{opacity:1}
 
 /* NAV */
 nav{
@@ -73,7 +61,7 @@ nav.scrolled{
 .nm-sq.a{background:var(--white)}
 .nm-sq.b{background:var(--gold)}
 .brand-name{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:22px;letter-spacing:.08em;color:var(--white);
 }
 .nav-links{list-style:none;display:flex;gap:36px}
@@ -88,7 +76,7 @@ nav.scrolled{
   background:var(--gold);transform:scaleX(0);transform-origin:left;
   transition:transform .3s;
 }
-.nav-links a:hover{color:var(--white)}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--white)}
 .nav-links a:hover::after{transform:scaleX(1)}
 .nav-quote{
   font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
@@ -97,6 +85,7 @@ nav.scrolled{
   transition:background .2s,transform .15s;
 }
 .nav-quote:hover{background:#e0bc5a;transform:translateY(-1px)}
+.nav-quote:focus-visible,.btn-gold:focus-visible{background:#e0bc5a;color:var(--bg)}
 
 /* MOBILE NAV TOGGLE */
 .nav-toggle{
@@ -138,7 +127,7 @@ nav.scrolled{
   align-items:center;gap:28px;
 }
 .mobile-menu a{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:32px;letter-spacing:.06em;
   color:var(--white);text-decoration:none;
   opacity:0;transform:translateY(12px);
@@ -203,7 +192,7 @@ nav.scrolled{
   animation:slideUp .8s .3s ease forwards;
 }
 .hero-title{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:clamp(72px,12vw,160px);
   line-height:.92;letter-spacing:.02em;
   color:var(--white);margin-bottom:32px;
@@ -238,6 +227,7 @@ nav.scrolled{
   display:inline-flex;align-items:center;gap:10px;
 }
 .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-outline:focus-visible{border-color:var(--gold);color:var(--gold)}
 .hero-scroll-hint{
   position:absolute;right:48px;bottom:80px;z-index:2;
   display:flex;flex-direction:column;align-items:center;gap:8px;
@@ -264,7 +254,7 @@ nav.scrolled{
 }
 @keyframes marquee{to{transform:translateX(-50%)}}
 .marquee-item{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:16px;letter-spacing:.14em;color:var(--bg);
   padding:0 32px;display:inline-flex;align-items:center;gap:32px;
 }
@@ -278,7 +268,7 @@ section{padding:120px 48px}
 }
 .eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
 .sec-title{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:clamp(48px,7vw,88px);
   line-height:.95;letter-spacing:.02em;color:var(--white);
   margin-bottom:28px;
@@ -317,7 +307,7 @@ section{padding:120px 48px}
   filter:brightness(.9) contrast(1.08) saturate(.85);
 }
 .about-number{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:120px;line-height:1;letter-spacing:-.02em;
   color:var(--bg3);position:absolute;top:-24px;left:-16px;
   user-select:none;pointer-events:none;
@@ -328,7 +318,7 @@ section{padding:120px 48px}
   padding-top:48px;border-top:1px solid var(--line);
 }
 .astat-num{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:56px;line-height:1;color:var(--gold);letter-spacing:.01em;
 }
 .astat-label{font-size:13px;color:var(--muted);margin-top:6px;font-weight:300;line-height:1.5}
@@ -348,7 +338,6 @@ section{padding:120px 48px}
   display:grid;grid-template-columns:80px 1fr 360px 120px;
   gap:32px;align-items:center;
   padding:36px 0;border-bottom:1px solid var(--line);
-  cursor:pointer;
   transition:background .2s;
   position:relative;overflow:hidden;
 }
@@ -362,12 +351,12 @@ section{padding:120px 48px}
 .service-row:hover .sr-name{color:var(--gold)}
 .service-row:first-child{border-top:1px solid var(--line)}
 .sr-num{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:14px;letter-spacing:.12em;color:var(--muted);
   transition:color .3s;
 }
 .sr-name{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:clamp(28px,4vw,48px);letter-spacing:.03em;
   color:var(--white);transition:color .3s;
 }
@@ -396,7 +385,6 @@ section{padding:120px 48px}
 }
 .proj-card{
   position:relative;overflow:hidden;border-radius:4px;
-  cursor:pointer;
 }
 .proj-card:first-child{
   grid-column:1/2;grid-row:1/3;
@@ -426,7 +414,7 @@ section{padding:120px 48px}
 }
 .proj-cat::before{content:'';width:20px;height:1px;background:var(--gold)}
 .proj-title{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:clamp(22px,3vw,36px);letter-spacing:.04em;color:var(--white);
   line-height:1.1;
 }
@@ -448,14 +436,14 @@ section{padding:120px 48px}
 }
 .pstep:first-child{border-top:1px solid var(--line)}
 .pstep-num{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:72px;line-height:1;color:var(--bg3);
   position:relative;
   transition:color .3s;
 }
 .pstep:hover .pstep-num{color:var(--gold-dim)}
 .pstep-title{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:40px;letter-spacing:.03em;color:var(--white);
   margin-bottom:16px;line-height:1;
 }
@@ -490,7 +478,7 @@ section{padding:120px 48px}
 .why-card:hover .why-icon{border-color:var(--gold);background:rgba(201,168,76,.05)}
 .why-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .why-title{
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:26px;letter-spacing:.04em;color:var(--white);margin-bottom:14px;
 }
 .why-body{font-size:14px;font-weight:300;line-height:1.8;color:var(--muted)}
@@ -503,7 +491,7 @@ section{padding:120px 48px}
 .contact-section::before{
   content:'CONTACT';
   position:absolute;right:-20px;top:40px;
-  font-family:'Bebas Neue',sans-serif;
+  font-family:var(--font-system);
   font-size:200px;color:var(--bg3);
   line-height:1;letter-spacing:.05em;
   pointer-events:none;user-select:none;white-space:nowrap;
@@ -524,7 +512,7 @@ section{padding:120px 48px}
   width:56px;height:56px;border-radius:50%;
   background:linear-gradient(135deg,var(--gold-dim),var(--gold));
   display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--bg);
+  font-family:var(--font-system);font-size:24px;color:var(--bg);
 }
 .ceo-name{font-size:16px;font-weight:500;color:var(--white)}
 .ceo-title{font-size:12px;color:var(--muted);margin-top:2px}
@@ -577,8 +565,6 @@ footer{
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  body{cursor:auto}
-  #cursor,#cursor-ring{display:none}
   .nav-links{display:none}
   nav > .nav-quote{display:none}
   .nav-toggle{display:block}
@@ -602,15 +588,83 @@ footer{
   .footer-inner{flex-direction:column}
   .footer-cols{gap:40px}
 }
+@media(max-width:600px){
+  .hero-title{font-size:clamp(58px,18vw,96px)}
+  .hero-body{font-size:15px;line-height:1.65;margin-bottom:32px}
+  .hero-actions{gap:12px}
+  .btn-gold,.btn-outline{width:100%;justify-content:center;padding:14px 20px}
+  .about-img-accent{bottom:-20px;right:-12px}
+  .about-text{padding-top:20px}
+  .about-stats{gap:24px;margin-top:40px;padding-top:32px}
+  .astat-num{font-size:44px}
+  .service-row{padding:28px 0;gap:16px}
+  .sr-name{font-size:30px}
+  .sr-desc{font-size:13px;line-height:1.6}
+  .pstep{padding:36px 0;gap:16px}
+  .pstep-num{font-size:52px}
+  .pstep-title{font-size:30px}
+  .contact-ceo,.ci{padding:20px}
+  footer{padding:48px 24px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* UI refinement: consistent rhythm, readable measure, and clearer interaction states. */
+section[id],#top{scroll-margin-top:84px}
+h1,h2,h3{ text-wrap:balance }
+.hero-body,.sec-body{max-width:58ch}
+.nav-quote{display:inline-flex;align-items:center;justify-content:center;min-height:44px}
+.service-row{padding:40px 0}
+.service-row:hover{background:rgba(201,168,76,.025)}
+.proj-card:focus-within,.gallery-item:focus-visible{border-color:var(--gold)}
+.gallery-item:focus-visible{outline-offset:3px}
+.ci{min-height:96px}
+.ci:hover{transform:translateX(4px)}
+@media(max-width:600px){
+  section[id],#top{scroll-margin-top:68px}
+  .service-row{padding:30px 0}
+  .ci{min-height:0}
+}
+
+/* Humanise the visual system: quieter motion, smaller display type, and less decoration. */
+.hero-bg{transform:scale(1.02);animation:none}
+.hero-line-top{background:var(--gold);opacity:.7;animation:none}
+.hero-eyebrow,.hero-title,.hero-body,.hero-actions{opacity:1;transform:none;animation:none}
+.hero-title{font-size:clamp(64px,9vw,124px);letter-spacing:0}
+.sec-title{font-size:clamp(44px,5.5vw,72px);letter-spacing:0}
+.about-number{font-size:88px}
+.reveal{transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.marquee-wrap{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 48px;white-space:normal}
+.marquee-track{display:flex;justify-content:center;flex-wrap:wrap;gap:0;animation:none}
+.marquee-item{font-family:var(--font-system);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:0 18px;color:var(--off)}
+.marquee-dot{background:var(--gold);opacity:.65}
+.marquee-item:nth-child(n+7){display:none}
+.proj-card:hover img,.gallery-item:hover img{transform:scale(1.03)}
+.contact-section::before{font-size:140px;opacity:.65}
+@media(max-width:900px){
+  .marquee-wrap{padding:16px 24px}
+  .marquee-item{padding:0 10px;font-size:10px}
+  .contact-section::before{font-size:72px}
+}
+
+/* Keep the original display type; use the Apple-style system face for supporting labels. */
+body{font-family:'DM Sans',sans-serif}
+.brand-name,.mobile-menu a,.hero-title,.sec-title,.about-number,.astat-num,
+.sr-num,.sr-name,.proj-title,.pstep-num,.pstep-title,.why-title,
+.contact-section::before{font-family:'Bebas Neue',sans-serif}
+.eyebrow,.hero-eyebrow,.scroll-label,.nav-links a,.nav-quote,.btn-gold,.btn-outline,
+.marquee-item,.astat-label,.sr-desc,.sr-tag,.proj-cat,.proj-sub,.sec-body,
+.pstep-body,.pstep-detail,.why-body,.ci-label,.ci-sub,.footer-tagline,
+.fc-head,.fc-links,.footer-copy,.footer-nz{font-family:var(--font-minor)}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.18em}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
 <!-- NAV -->
-<nav id="mainNav">
+<nav id="mainNav" aria-label="Primary navigation">
   <a href="#" class="nav-brand">
     <div class="nav-mark">
       <div class="nm-sq a"></div>
@@ -626,13 +680,13 @@ footer{
     <li><a href="#contact">Contact</a></li>
   </ul>
   <a href="#contact" class="nav-quote">Get a Quote</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu"></button>
   <ul>
     <li><a href="#about">About</a></li>
@@ -644,6 +698,7 @@ footer{
   <a href="#contact" class="nav-quote">Get a Quote</a>
 </div>
 
+<main>
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-bg"></div>
@@ -837,6 +892,7 @@ footer{
 .gallery-item{
   position:relative;overflow:hidden;border-radius:4px;
   border:1px solid var(--line);cursor:pointer;aspect-ratio:1/1;
+  padding:0;background:none;color:inherit;text-align:left;font:inherit;
 }
 .gallery-item img{
   width:100%;height:100%;object-fit:cover;display:block;
@@ -885,70 +941,9 @@ footer{
   position:absolute;top:28px;right:36px;
   width:36px;height:36px;border:1px solid var(--line);border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  color:var(--off);font-size:20px;line-height:1;font-weight:300;
+  background:transparent;color:var(--off);font-size:20px;line-height:1;font-weight:300;
 }
 </style>
-<script>
-// ============================================================
-// PROJECT GALLERY IMAGES — to add a new photo, just add one
-// more line below with the image path, a short description,
-// and a category. The grid and lightbox update automatically;
-// nothing else in the page needs to change.
-// ============================================================
-const galleryImages = [
-  { src:'images/image_0.jpg', alt:'Curved rural driveway pour', category:'Residential' },
-  { src:'images/image_1.jpg', alt:'Driveway apron finish beside home', category:'Residential' },
-  { src:'images/image_2.jpg', alt:'Backyard concrete path along fence line', category:'Residential' },
-  { src:'images/image_3.jpg', alt:'Large backyard slab pour', category:'Residential' },
-  { src:'images/image_4.jpg', alt:'Commercial building entrance footpath', category:'Commercial' },
-  { src:'images/image_5.jpg', alt:'Commercial forecourt pour between buildings', category:'Commercial' },
-  { src:'images/image_6.jpg', alt:'Exposed aggregate footpath along boundary fence', category:'Infrastructure' },
-  { src:'images/image_7.jpg', alt:'Covered walkway with exposed aggregate finish', category:'Commercial' },
-  { src:'images/image_8.jpg', alt:'Interior slab finish', category:'Commercial' },
-  { src:'images/image_9.jpg', alt:'Curving pathway along fence line', category:'Infrastructure' },
-  { src:'images/image_10.jpg', alt:'Commercial precinct pathway with garden bed', category:'Commercial' },
-  { src:'images/image_11.jpg', alt:'Accessibility tactile paving detail', category:'Infrastructure' },
-];
-
-const galleryGrid = document.getElementById('galleryGrid');
-galleryGrid.innerHTML = galleryImages.map((item,i)=>`
-  <div class="gallery-item reveal delay-${(i%4)+1}">
-    <img src="${item.src}" alt="${item.alt}" loading="lazy">
-    <div class="gallery-overlay"></div>
-    <div class="gallery-cat">${item.category}</div>
-  </div>
-`).join('');
-
-// Lightbox — click an image to view full size, click again or press Esc to close
-galleryGrid.addEventListener('click', e=>{
-  const itemEl = e.target.closest('.gallery-item');
-  if(!itemEl) return;
-  const idx = [...galleryGrid.children].indexOf(itemEl);
-  const item = galleryImages[idx];
-
-  const box = document.createElement('div');
-  box.className = 'lightbox';
-  box.innerHTML = `
-    <div class="lightbox-close">&times;</div>
-    <img src="${item.src}" alt="${item.alt}">
-    <div class="lightbox-cap">${item.category} — ${item.alt}</div>
-  `;
-  document.body.appendChild(box);
-  requestAnimationFrame(()=>box.classList.add('show'));
-
-  const close = ()=>{
-    box.classList.remove('show');
-    setTimeout(()=>box.remove(), 300);
-    document.removeEventListener('keydown', onKey);
-  };
-  box.addEventListener('click', close);
-  const onKey = ev=>{ if(ev.key==='Escape') close(); };
-  document.addEventListener('keydown', onKey);
-});
-</script>
-</body>
-</html>
-
 <!-- PROCESS -->
 <section class="process-section" id="process">
   <div class="process-header">
@@ -1079,7 +1074,7 @@ galleryGrid.addEventListener('click', e=>{
       </div>
     </div>
     <div class="contact-items reveal delay-2">
-      <a href="mailto:contact@msconcrete.co.nz" class="ci">
+      <a href="mailto:serafinsosmena01@gmail.com" class="ci">
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
@@ -1089,7 +1084,7 @@ galleryGrid.addEventListener('click', e=>{
           <div class="ci-sub">Best for project enquiries and quotes</div>
         </div>
       </a>
-      <a href="tel:+64272915568" class="ci">
+      <a href="tel:+6421348330" class="ci">
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         </div>
@@ -1109,7 +1104,7 @@ galleryGrid.addEventListener('click', e=>{
           <div class="ci-sub">Alternative contact number</div>
         </div>
       </a>
-      <div class="ci" style="cursor:default">
+      <div class="ci">
         <div class="ci-icon">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
         </div>
@@ -1123,6 +1118,7 @@ galleryGrid.addEventListener('click', e=>{
   </div>
 </section>
 
+ </main>
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -1158,7 +1154,7 @@ galleryGrid.addEventListener('click', e=>{
         <div class="fc-head">Contact</div>
         <ul class="fc-links">
           <li><a href="mailto:serafinsosmena01@gmail.com">serafinsosmena01@gmail.com</a></li>
-          <li><a href="tel:+64211348330">02 134 8330</a></li>
+          <li><a href="tel:+6421348330">02 134 8330</a></li>
           <li><a href="tel:+64211629214">021 162 9214</a></li>
           <li><a href="#top">Auckland, NZ</a></li>
         </ul>
@@ -1171,52 +1167,6 @@ galleryGrid.addEventListener('click', e=>{
   </div>
 </footer>
 
-<script>
-// Custom cursor
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,.service-row,.proj-card,.gallery-item,.lightbox-close').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='56px';ring.style.height='56px';ring.style.opacity='0.8';});
-  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';ring.style.opacity='0.5';});
-});
-
-// Nav scroll
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll',()=>{
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-},{passive:true});
-
-// Mobile menu toggle
-const navToggle = document.getElementById('navToggle');
-const mobileMenu = document.getElementById('mobileMenu');
-function closeMobileMenu(){
-  navToggle.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  navToggle.setAttribute('aria-expanded','false');
-  document.body.style.overflow = '';
-}
-navToggle.addEventListener('click', () => {
-  const isOpen = mobileMenu.classList.toggle('open');
-  navToggle.classList.toggle('open', isOpen);
-  navToggle.setAttribute('aria-expanded', isOpen);
-  document.body.style.overflow = isOpen ? 'hidden' : '';
-});
-mobileMenu.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', closeMobileMenu);
-});
-document.getElementById('mobileMenuClose').addEventListener('click', closeMobileMenu);
-mobileMenu.addEventListener('click', (e) => {
-  if(e.target === mobileMenu) closeMobileMenu();
-});
-
-// Reveal on scroll
-const revels = document.querySelectorAll('.reveal');
-const ro = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('vis');});
-},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
-revels.forEach(el=>ro.observe(el));
-</script>
+</body>
+</html>
 
